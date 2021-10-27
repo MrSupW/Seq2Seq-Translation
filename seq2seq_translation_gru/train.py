@@ -1,4 +1,5 @@
 # -*-coding:utf-8-*-
+import os
 import random
 import time
 
@@ -112,6 +113,9 @@ if __name__ == '__main__':
     best_valid_loss = float('inf')
 
     train_losses = []
+
+    if not os.path.isdir("models"):
+        os.mkdir("models")
 
     for i in range(1, N_EPOCHS + 1):
         start_time = time.time()

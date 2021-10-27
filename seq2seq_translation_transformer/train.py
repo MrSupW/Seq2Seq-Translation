@@ -1,4 +1,5 @@
 # -*-coding:utf-8-*-
+import os.path
 import time
 import torch.nn.utils
 from matplotlib import pyplot as plt
@@ -126,12 +127,15 @@ if __name__ == '__main__':
     train_losses = []
     epoch_train_losses = []
     epoch_valid_losses = []
+    if not os.path.isdir("models"):
+        os.mkdir("models")
+
     for i in range(1, N_EPOCHS + 1):
         start_time = time.time()
         log_info(f'Epoch: {i}')
         train_loss = train(train_data_loader)
         valid_loss = evaluate(valid_data_loader)
-        log_info(f"""Epoch: {i}  | time in {(time.time() - start_time) // 60}m {(time.time() - start_time) % 60:.1f}s
+        log_info(f"""Epoch: {i}  | time in {(time.time() - start_time) // 60:.0f}m {(time.time() - start_time) % 60:.1f}s
         Loss: {train_loss:>6.4f}(train) |   Acc: {0 * 100:.2f}%(train)
         Loss: {valid_loss:>6.4f}(valid) |   Acc: {0 * 100:.2f}%(valid)\n""")
         epoch_train_losses.append(train_loss)
